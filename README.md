@@ -1,17 +1,71 @@
-What are tokens?
-Tokens can be thought of as pieces of words. Before the API processes the request, the input is broken down into tokens. These tokens are not cut up exactly where the words start or end - tokens can include trailing spaces and even sub-words. Here are some helpful rules of thumb for understanding tokens in terms of lengths:
+# LLM Agent
 
-1 token ~= 4 chars in English
+AI coding assistant built with Google Gemini 2.0 that can explore codebases, read files, write code, and execute Python scripts through function calling.
 
-1 token ~= ¾ words
+## Features
 
-100 tokens ~= 75 words
+- **File Operations**: List directories, read/write files
+- **Python Execution**: Run scripts with arguments
+- **Multi-turn Conversations**: Maintains context across function calls
+- **Sandboxed Environment**: Secure execution within working directory
 
-Or 
+## Setup
 
-1-2 sentence ~= 30 tokens
+1. Install dependencies:
+   ```bash
+   uv sync
+   ```
 
-1 paragraph ~= 100 tokens
+2. Add your Gemini API key to `.env`:
+   ```env
+   GEMINI_API_KEY=your_api_key_here
+   ```
 
-1,500 words ~= 2048 tokens
+## Usage
 
+Basic usage:
+```bash
+uv run main.py "your prompt here"
+```
+
+With verbose output:
+```bash
+uv run main.py "your prompt here" --verbose
+```
+
+## Examples
+
+```bash
+# Analyze code
+uv run main.py "explain how the calculator works"
+
+# Run tests
+uv run main.py "run tests.py and show results"
+
+# File operations
+uv run main.py "create a hello world script"
+
+# Explore codebase
+uv run main.py "list all files and show me the main entry point"
+```
+
+## Available Functions
+
+- `get_files_info` - List directory contents
+- `get_files_content` - Read file contents  
+- `write_file` - Create/overwrite files
+- `run_python` - Execute Python scripts
+
+## How It Works
+
+1. User provides natural language prompt
+2. LLM plans and executes function calls
+3. Results are added to conversation context
+4. Process repeats until task is complete
+5. Final comprehensive response provided
+
+## Security
+
+- All operations constrained to `./calculator` directory
+- 30-second timeout on script execution
+- Path validation prevents directory traversal

@@ -24,4 +24,21 @@ def get_file_content(working_directory, file_path):
         return file_content_string
     except Exception as e:
         return f'Error: Failed to read file "{file_path}": {e}'
-        
+    
+from google.genai import types
+ 
+schema_get_files_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Gets the contents of a file in the specified path, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(  # CHANGED: from "directory" to "file_path"
+                type=types.Type.STRING,
+                description="The file path to read from, relative to the working directory.",
+            ),
+        },
+        required=["file_path"],
+    ),
+)
+
