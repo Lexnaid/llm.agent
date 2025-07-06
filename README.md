@@ -69,3 +69,6 @@ uv run main.py "list all files and show me the main entry point"
 - All operations constrained to `./calculator` directory
 - 30-second timeout on script execution
 - Path validation prevents directory traversal
+
+
+Done alongisde help from courses made by the the www.bootdev.com team!
